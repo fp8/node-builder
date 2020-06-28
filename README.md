@@ -12,6 +12,16 @@ number is used to increment any changes implemented in the `node-builder` docker
 
 * `node major`.`node minor`.`node-builder version`
 
+#### Build and Push
+
+There is not integration with docker hub at the moment.  As result, do the following to push:
+
+```
+make build
+make push
+```
+
+
 ## Release Note
 
 #### 10.21.0 [2020-06-28]

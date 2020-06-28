@@ -8,18 +8,21 @@
 #
 # ===========================================================
 
-PROJ_DIR             := $(shell pwd)
-SSH_DIR              := $(PROJ_DIR)/ssh
-
 IMAGE_PREFIX   := farport
 INST_NAME      := node-builder
 IMAGE_VERSION  := 10.20.0
+
 IMAGE_NAME     := $(IMAGE_PREFIX)/$(INST_NAME):$(IMAGE_VERSION)
+
+
 
 # ------------------
 # USAGE: First target called if no target specified
+.PHONY : man
 man :
 	@cat README.md
+
+
 
 # ------------------
 # Check dependencies
@@ -29,19 +32,36 @@ ifeq ($(shell which docker),)
 	$(error docker command needed to be installed.)
 endif
 
-.PHONY : alpine buster
-alpine buster :
+
+
+# ------------------
+# Build Docker Image
+.PHONY : build alpine buster
+
+alpine buster : init
 	docker build -f Dockerfile.$@ -t $(IMAGE_NAME)-$@ .
 	@echo "Docker image $(IMAGE_NAME)-$@ built"
 
-.PHONY : setup
-setup : alpine buster
+build : alpine buster
 
+
+
+# ------------------
+# Build Docker Image
+.PHONY : push push-alpine push-buster
+
+push-alpine push-buster :
+	docker push $(IMAGE_NAME)-$(patsubst push-%,%,$@)
+
+push : push-alpine push-buster
+
+
+
+# ------------------
+# Clean Docker Image
 .PHONE : clean clean-alpine clean-buster
-clean-alpine :
-	@echo "### Removing docker image $(IMAGE_NAME)-alpine"
-	@docker rmi $(IMAGE_NAME)-alpine
-clean-buster :
-	@echo "### Removing docker image $(IMAGE_NAME)-buster"
-	@docker rmi $(IMAGE_NAME)-buster
+
+clean-alpine clean-buster :
+	docker rmi $(IMAGE_NAME)-$(patsubst clean-%,%,$@)
+
 clean : clean-alpine clean-buster
