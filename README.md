@@ -1,0 +1,20 @@
+# farport/node-builder
+
+Simple docker image to help with building node based project for docker.  2 version:
+
+* `alpine`
+* `debian` -> name by it's release name, e.g.: `buster`
+
+#### Version Naming
+
+The version naming uses tha major and minor version of the underlying node version.  The build
+number is used to increment any changes implemented in the `node-builder` docker image.
+
+* `node major`.`node minor`.`node-builder version`
+
+## Release Note
+
+#### 10.21.0 [2020-06-28]
+
+* Initial release for both `alpine` and `buster`
+* Base code from former `fp8-node-builder` project

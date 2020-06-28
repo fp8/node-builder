@@ -1,0 +1,19 @@
+FROM node:10.20.1-buster
+
+LABEL maintainer="Marcos Lin <marcos.lin@farport.co>" \
+	"version.node"="10.20.1" \
+	"version.yarn"="1.22.4"
+
+# Add the necessary file from host
+ADD bin/* /usr/local/bin/
+
+RUN apt-get update && apt-get install -y \
+	rsync \
+	&& mkdir -p /root/.ssh \
+    && ssh-keyscan gitlab.com > /root/.ssh/known_hosts \
+    && ssh-keyscan github.com >> /root/.ssh/known_hosts \
+    && ssh-keyscan bitbucket.org >> /root/.ssh/known_hosts \
+    && chmod 500 /root/.ssh \
+    && mkdir /proj
+
+VOLUME [ "/var/cache/yarn" ]

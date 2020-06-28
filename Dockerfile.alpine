@@ -1,0 +1,23 @@
+FROM node:10.20.1-alpine3.11
+
+LABEL maintainer="Marcos Lin <marcos.lin@farport.co>" \
+	"version.node"="10.20.1" \
+	"version.yarn"="1.22.4"
+
+# Add the necessary file from host
+ADD bin/* /usr/local/bin/
+
+# Create infra needed for builder
+RUN apk update \
+    && apk add --no-cache git openssh-client \
+    && apk add --no-cache openssl ca-certificates wget \
+    && apk add --no-cache g++ gcc libgcc libstdc++ linux-headers make python \
+    && yarn config set cache-folder /var/cache/yarn \
+    && mkdir /root/.ssh \
+    && ssh-keyscan gitlab.com > /root/.ssh/known_hosts \
+    && ssh-keyscan github.com >> /root/.ssh/known_hosts \
+    && ssh-keyscan bitbucket.org >> /root/.ssh/known_hosts \
+    && chmod 500 /root/.ssh \
+    && mkdir /proj
+
+VOLUME [ "/var/cache/yarn" ]
