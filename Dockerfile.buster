@@ -1,8 +1,8 @@
-FROM node:10.20.1-buster
+FROM node:14.15.4-buster
 
 LABEL maintainer="Marcos Lin <marcos.lin@farport.co>" \
-	"version.node"="10.20.1" \
-	"version.yarn"="1.22.4"
+	"version.node"="14.15.4" \
+	"version.yarn"="1.22.5"
 
 # Add the necessary file from host
 ADD bin/* /usr/local/bin/

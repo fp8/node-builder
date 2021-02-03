@@ -1,8 +1,8 @@
-FROM node:10.20.1-alpine3.11
+FROM node:14.15.4-alpine3.12
 
 LABEL maintainer="Marcos Lin <marcos.lin@farport.co>" \
-	"version.node"="10.20.1" \
-	"version.yarn"="1.22.4"
+	"version.node"="14.15.4" \
+	"version.yarn"="1.22.5"
 
 # Add the necessary file from host
 ADD bin/* /usr/local/bin/
@@ -11,7 +11,7 @@ ADD bin/* /usr/local/bin/
 RUN apk update \
     && apk add --no-cache git openssh-client \
     && apk add --no-cache openssl ca-certificates wget \
-    && apk add --no-cache g++ gcc libgcc libstdc++ linux-headers make python \
+    && apk add --no-cache g++ gcc libgcc libstdc++ linux-headers make python3 \
     && yarn config set cache-folder /var/cache/yarn \
     && mkdir /root/.ssh \
     && ssh-keyscan gitlab.com > /root/.ssh/known_hosts \

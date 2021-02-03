@@ -10,7 +10,7 @@
 
 IMAGE_PREFIX   := farport
 INST_NAME      := node-builder
-IMAGE_VERSION  := 10.20.0
+IMAGE_VERSION  := 14.15.0
 
 IMAGE_NAME     := $(IMAGE_PREFIX)/$(INST_NAME):$(IMAGE_VERSION)
 
@@ -39,7 +39,7 @@ endif
 .PHONY : build alpine buster
 
 alpine buster : init
-	docker build -f Dockerfile.$@ -t $(IMAGE_NAME)-$@ .
+	docker build --rm -f Dockerfile.$@ -t $(IMAGE_NAME)-$@ .
 	@echo "Docker image $(IMAGE_NAME)-$@ built"
 
 build : alpine buster
