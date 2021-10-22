@@ -1,14 +1,14 @@
-FROM node:14.15.4-buster
+FROM node:16.12.0-buster
 
 LABEL maintainer="Marcos Lin <marcos.lin@farport.co>" \
-	"version.node"="14.15.4" \
-	"version.yarn"="1.22.5"
+	"app.fp8.docker.version.node"="16.12.0" \
+	"app.fp8.docker.version.yarn"="1.22.15"
 
 # Add the necessary file from host
 ADD bin/* /usr/local/bin/
 
 RUN apt-get update && apt-get install -y \
-	rsync \
+	rsync python3 \
 	&& mkdir -p /root/.ssh \
     && ssh-keyscan gitlab.com > /root/.ssh/known_hosts \
     && ssh-keyscan github.com >> /root/.ssh/known_hosts \
