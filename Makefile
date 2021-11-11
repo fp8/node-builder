@@ -10,7 +10,7 @@
 
 IMAGE_PREFIX   := farport
 INST_NAME      := node-builder
-IMAGE_VERSION  := 16.12.0
+IMAGE_VERSION  := 16.13.0
 
 IMAGE_NAME     := $(IMAGE_PREFIX)/$(INST_NAME):$(IMAGE_VERSION)
 
