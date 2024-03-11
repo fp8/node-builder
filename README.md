@@ -28,14 +28,3 @@ To check the content of an existing image, do:
 ```
 docker run --rm -it node:14.15.4-alpine3.12 sh
 ```
-
-## Release Note
-
-#### 14.15.0 [2020-06-28]
-
-* Create `alpine` and `buster` image for node 14.15.4
-
-#### 10.21.0 [2020-06-28]
-
-* Initial release for both `alpine` and `buster`
-* Base code from former `fp8-node-builder` project
